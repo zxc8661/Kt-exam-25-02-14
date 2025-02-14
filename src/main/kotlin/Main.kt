@@ -8,6 +8,7 @@ import org.example.FileManager.makeFile
 import org.example.FileManager.readJsonFile
 import org.example.FileManager.readTxtFile
 import java.io.File
+import kotlin.system.exitProcess
 
 fun main() {
     println("명언앱 시작")
@@ -27,7 +28,10 @@ fun main() {
 
 
         when(input[0]){
-            "종료" -> break
+            "종료" -> {
+                println("프로그램이 종료됩니다")
+                exitProcess(0)
+            }
             "등록" ->{
                 print("명언 : ")
                 val content = readlnOrNull()!!.trim()
