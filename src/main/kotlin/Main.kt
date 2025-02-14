@@ -33,15 +33,32 @@ fun main() {
                 println("${input[2]}번 명언이 존재하지 않습니다.")
             }
         }else if(input[0] == "수정"){
-            val index = input[2].toInt()-1
-            val preData = Datas[index];
+            if(input.size<2){
+                println("잘못됨 입력입니다. 명령어를 다시 입력해주세요")
+                continue
+            }
+            val modifyDataId = input[2].toInt()
+            val preData = Datas.find{it.id==modifyDataId}
+
+            if(preData==null){
+                println("해당 id의 명언을 찾을 수 없습니다. 명령어를 다시 입력해 주세요")
+                continue
+            }
+
             println("명언(기존) : ${preData.content}")
             print("명언 : ")
-            val newContent = readlnOrNull()!!.trim()
-            println("작가(기존) : ${preData.author}" )
+            val newComment = readlnOrNull()!!.trim()
+            println("작가(기존) : ${preData.author}")
             print("작가 : ")
             val newAuthor = readlnOrNull()!!.trim()
-            Datas[index] = Datas[index].copy(content = newContent, author = newAuthor)
+
+            Datas[Datas.indexOf(preData)]  = Datas[Datas.indexOf(preData)].copy(
+                content = newComment,
+                author = newAuthor
+            )
+
+
+
         }
     }
 }
