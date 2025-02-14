@@ -16,16 +16,14 @@ fun main() {
         }else if(input[0] == "등록"){
             print("명언 : ")
             val content = readlnOrNull()!!.trim()
-            print("작가: ")
+            print("작가 : ")
             val author = readlnOrNull()!!.trim()
 
             val id=++lastId
            Datas.add(Data(id,content,author))
         }else if(input[0]== "목록") {
             println("----------------------")
-            for (data in Datas) {
-                println("${data.id} / ${data.author} / ${data.content}")
-            }
+            Datas.asReversed().forEach{println("${it.id} / ${it.author} / ${it.content}")}
         }else if(input[0] == "삭제"){
            val result = Datas.removeAll{it.id==input[2].toInt()}
 
@@ -34,6 +32,16 @@ fun main() {
             }else{
                 println("${input[2]}번 명언이 존재하지 않습니다.")
             }
+        }else if(input[0] == "수정"){
+            val index = input[2].toInt()-1
+            val preData = Datas[index];
+            println("명언(기존) : ${preData.content}")
+            print("명언 : ")
+            val newContent = readlnOrNull()!!.trim()
+            println("작가(기존) : ${preData.author}" )
+            print("작가 : ")
+            val newAuthor = readlnOrNull()!!.trim()
+            Datas[index] = Datas[index].copy(content = newContent, author = newAuthor)
         }
     }
 }
