@@ -25,19 +25,18 @@ class WiseSayingController{
                 false
             }
             "목록"->{
-                if(input.containsKey("keywordType") && input.containsKey("keyword")){
-                    if(input["keywordType"]==null || input["keyword"]==null){
-                        println(errorMessage)
-                    }else{
-                        println("----------------------")
-                        println("검색어 타입 : ${input.get("keywordType")}")
-                        println("검색어 : ${input.get("keyword")}")
-                        println("----------------------")
-                        println("번호 / 작가 / 명언")
-                        println("----------------------")
-                        service.keyList(input["keywordType"]!!,input["keyword"]!!).asReversed()
-                            .forEach{println("${it.id} / ${it.author} / ${it.content}")}
-                    }
+
+                if(input["keywordType"]!=null || input["keyword"]!=null){
+
+                    println("----------------------")
+                    println("검색어 타입 : ${input.get("keywordType")}")
+                    println("검색어 : ${input.get("keyword")}")
+                    println("----------------------")
+                    println("번호 / 작가 / 명언")
+                    println("----------------------")
+                    service.keyList(input["keywordType"]!!,input["keyword"]!!).asReversed()
+                        .forEach{println("${it.id} / ${it.author} / ${it.content}")}
+
                 }else {
                     println("번호 / 작가 / 명언")
                     println("----------------------")

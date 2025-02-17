@@ -1,12 +1,12 @@
 package org.example.wiseSaying
 
 class WiseSayingRepository{
-    val wiseSayings = WiseSayingList.wiseSayingList
-    var lastId = WiseSayingList.lastId
-    val fileManager = FileManager
+    private val wiseSayings = WiseSayingList.wiseSayingList
+    private var lastId = WiseSayingList.lastId
+    private val fileManager = FileManager
     fun create(newAuthor: String, newContent: String):Int {
         lastId++
-        var newWiseSaying = WiseSaying(lastId,newContent,newAuthor)
+        val newWiseSaying = WiseSaying(lastId,newContent,newAuthor)
         wiseSayings.add(newWiseSaying)
         fileManager.makeFile(newWiseSaying,lastId)
         return lastId
@@ -77,18 +77,10 @@ class WiseSayingRepository{
         var list:MutableList<WiseSaying> = mutableListOf()
         when(keywordType){
                 "content"->{
-                    for(wiseSaying in wiseSayings){
-                        if(wiseSaying.content.contains(keyword)){
-                            list.add(wiseSaying)
-                        }
-                    }
+                  wiseSayings.filter{it.content.contains(keyword)}
                 }
                 "author"->{
-                    for(wiseSaying in wiseSayings){
-                        if(wiseSaying.author.contains(keyword)){
-                            list.add(wiseSaying)
-                        }
-                    }
+                    wiseSayings.filter{it.author.contains(keyword)}
                 }
             }
         return list
