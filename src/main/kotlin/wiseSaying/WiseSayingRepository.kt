@@ -66,6 +66,26 @@ class WiseSayingRepository{
         fileManager.makeLastId()
     }
 
+    fun keyList(keywordType: String, keyword: String):List<WiseSaying> {
+        var list:MutableList<WiseSaying> = mutableListOf()
+        when(keywordType){
+                "content"->{
+                    for(wiseSaying in wiseSayings){
+                        if(wiseSaying.content.contains(keyword)){
+                            list.add(wiseSaying)
+                        }
+                    }
+                }
+                "author"->{
+                    for(wiseSaying in wiseSayings){
+                        if(wiseSaying.author.contains(keyword)){
+                            list.add(wiseSaying)
+                        }
+                    }
+                }
+            }
+        return list
+    }
 
 
 }

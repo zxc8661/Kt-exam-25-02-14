@@ -29,5 +29,9 @@ class WiseSayingService{
         repository.loadInitialData()
     }
 
+    fun keyList(keywordType: String, keyword: String):List<WiseSaying> {
+        return repository.keyList(keywordType,keyword)
+    }
+
 
 }

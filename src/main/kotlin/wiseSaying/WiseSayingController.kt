@@ -6,11 +6,11 @@ class WiseSayingController{
     fun loadInitialData(){
         service.loadInitialData()
     }
-    fun wiseSayingController(input:List<String>):Boolean{
+    fun wiseSayingController(input:Map<String,String>):Boolean{
 
 
 
-        return when(input[0]){
+        return when(input["cmd"]){
             "종료"->{
                 println("프로그램이 종료됩니다")
                 true
@@ -25,36 +25,60 @@ class WiseSayingController{
                 false
             }
             "목록"->{
-                println("번호 / 작가 / 명언")
-                println("----------------------")
-                service.list().asReversed().forEach{println("${it.id} / ${it.author} / ${it.content}")}
+                if(input.containsKey("keywordType") && input.containsKey("keyword")){
+                    if(input["keywordType"]==null || input["keyword"]==null){
+                        println(errorMessage)
+                    }else{
+                        println("----------------------")
+                        println("검색어 타입 : ${input.get("keywordType")}")
+                        println("검색어 : ${input.get("keyword")}")
+                        println("----------------------")
+                        println("번호 / 작가 / 명언")
+                        println("----------------------")
+                        service.keyList(input["keywordType"]!!,input["keyword"]!!).asReversed()
+                            .forEach{println("${it.id} / ${it.author} / ${it.content}")}
+                    }
+                }else {
+                    println("번호 / 작가 / 명언")
+                    println("----------------------")
+                    service.list().asReversed().forEach { println("${it.id} / ${it.author} / ${it.content}") }
+                }
                 false
             }
             "삭제"->{
-                if(input.size<2){
+
+                if(!input.containsKey("id")){
                     println(errorMessage)
-                }else {
-                    println(service.remove(id = input[2].toInt()))
+                }else{
+                    val id = input["id"]!!.toIntOrNull()
+                    if(id==null){
+                        println(errorMessage)
+                    }else{
+                        println(service.remove(id = id))
+                    }
                 }
                 false
             }
             "수정"->{
-                if(input.size<2){
+                if(!input.containsKey("id")){
                     println(errorMessage)
-                }else{
-                    val preWiseSaying = service.findWiseSaying(input[2].toInt())
-
-                    if(preWiseSaying==null){
-                        println("${input[2]}를 찾을 수 없습니다. 다시 입력해주세요.")
+                } else {
+                    val id = input["id"]!!.toIntOrNull()
+                    if(id==null){
+                        println(errorMessage)
                     }else{
-                        println("명언(기존) : ${preWiseSaying.content}")
-                        print("명언 : ")
-                        val newContest = readlnOrNull()!!.trim()
-                        println("작가(기존) : ${preWiseSaying.author}")
-                        print("작가 : ")
-                        val newAuthor = readlnOrNull()!!.trim()
-
-                        service.modify(input[2].toInt(),newAuthor,newContest)
+                        val preWiseSaying = service.findWiseSaying(id)
+                        if(preWiseSaying == null){
+                            println("$id:를 찾을 수 없습니다. 다시 입력해주세요")
+                        } else{
+                            println("명언(기존) : ${preWiseSaying.content}")
+                            print("명언 : ")
+                            val newContent = readlnOrNull()!!.trim()
+                            println("작가(기존) : ${preWiseSaying.author}" )
+                            print("작가 : ")
+                            val newAuthor = readlnOrNull()!!.trim()
+                            service.modify(id,newAuthor,newContent)
+                        }
                     }
                 }
                 false
