@@ -20,8 +20,8 @@ class WiseSayingController{
                 val newContent = readlnOrNull()!!.trim()
                 print("작가 : ")
                 val newAuthor = readlnOrNull()!!.trim()
-                service.create(newAuthor,newContent)
-
+                val newWiseSayingId = service.create(newAuthor,newContent)
+                println("${newWiseSayingId}번 명언이 등록되었습니다.")
                 false
             }
             "목록"->{

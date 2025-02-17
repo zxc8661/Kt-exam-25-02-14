@@ -1,6 +1,6 @@
 package org.example.wiseSaying
 
-class App {
+class App() {
     fun run(){
         println("명언앱 시작")
         val controller = WiseSayingController()
@@ -8,6 +8,7 @@ class App {
 
         while (true) {
             print("명령) ")
+
 
             val input = readlnOrNull()!!.trim().split("?", "=")
 
@@ -18,5 +19,11 @@ class App {
             val isExit = controller.wiseSayingController(input)
             if(isExit) break
         }
+    }
+
+    fun clearData(){
+        val repository = WiseSayingRepository()
+        repository.clearData()
+
     }
 }

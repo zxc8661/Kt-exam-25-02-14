@@ -1,8 +1,8 @@
 package org.example.wiseSaying
 class WiseSayingService{
     val repository  = WiseSayingRepository()
-    fun create(newAuthor: String, newContent: String) {
-        repository.create(newAuthor,newContent)
+    fun create(newAuthor: String, newContent: String):Int {
+        return repository.create(newAuthor,newContent)
 
     }
     fun list():List<WiseSaying>{

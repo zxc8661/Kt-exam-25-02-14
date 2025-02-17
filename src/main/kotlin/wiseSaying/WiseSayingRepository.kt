@@ -4,12 +4,12 @@ class WiseSayingRepository{
     val wiseSayings = WiseSayingList.wiseSayingList
     var lastId = WiseSayingList.lastId
     val fileManager = FileManager
-    fun create(newAuthor: String, newContent: String) {
+    fun create(newAuthor: String, newContent: String):Int {
         lastId++
         var newWiseSaying = WiseSaying(lastId,newContent,newAuthor)
         wiseSayings.add(newWiseSaying)
         fileManager.makeFile(newWiseSaying,lastId)
-
+        return lastId
     }
 
     fun list():List<WiseSaying>{
@@ -17,7 +17,7 @@ class WiseSayingRepository{
     }
 
     fun remove(id: Int):String {
-        val result = wiseSayings.removeAll{it.id == id.toInt()}
+        val result = wiseSayings.removeAll{it.id == id}
         if(result){
             fileManager.deleteJsonFile(id)
             return "${id}번 명언이 삭제되었습니다"
@@ -55,5 +55,17 @@ class WiseSayingRepository{
             }
         }
     }
+
+    fun clearData(){
+        lastId = fileManager.readTxtFile()?:0
+
+        for(i in 1..lastId){
+            fileManager.deleteJsonFile(i)
+        }
+
+        fileManager.makeLastId()
+    }
+
+
 
 }

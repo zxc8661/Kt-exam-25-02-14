@@ -61,4 +61,8 @@ object FileManager {
         file.delete()
     }
 
+    fun makeLastId(){
+        File(directory,"lastId.txt").writeText("0");
+    }
+
 }
