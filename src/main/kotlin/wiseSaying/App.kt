@@ -1,12 +1,13 @@
 package org.example.wiseSaying
 
 class App {
-    fun app(){
+    fun run(){
         println("명언앱 시작")
         val controller = WiseSayingController()
+        controller.loadInitialData()
 
         while (true) {
-            println("명령) ")
+            print("명령) ")
 
             val input = readlnOrNull()!!.trim().split("?", "=")
 
