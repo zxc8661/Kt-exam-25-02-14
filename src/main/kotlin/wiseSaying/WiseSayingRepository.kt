@@ -12,8 +12,15 @@ class WiseSayingRepository{
         return lastId
     }
 
-    fun list():List<WiseSaying>{
-        return wiseSayings
+    fun list(page: Int):List<WiseSaying>{
+        val  itemPerPage = 5
+        val reversList= wiseSayings.asReversed()
+        val startIndex=(page-1)*itemPerPage
+        var endIndex=startIndex+itemPerPage
+        if(endIndex>=reversList.size)endIndex = reversList.size
+
+
+        return reversList.subList(startIndex,endIndex)
     }
 
     fun remove(id: Int):String {
@@ -85,6 +92,12 @@ class WiseSayingRepository{
                 }
             }
         return list
+    }
+
+    fun totalPage(): Int {
+        var totalPage = wiseSayings.size/5
+        if(wiseSayings.size%5!=0) totalPage+=1
+        return totalPage
     }
 
 

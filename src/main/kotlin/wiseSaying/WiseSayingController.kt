@@ -41,7 +41,13 @@ class WiseSayingController{
                 }else {
                     println("번호 / 작가 / 명언")
                     println("----------------------")
-                    service.list().asReversed().forEach { println("${it.id} / ${it.author} / ${it.content}") }
+
+                    val page = input.get("page")?.toInt() ?:1
+                    val totalPage:Int = service.totalPage();
+
+                    service.list(page).forEach { println("${it.id} / ${it.author} / ${it.content}") }
+                    println("페이지 : ${page} / [${totalPage}] ")
+
                 }
                 false
             }

@@ -24,6 +24,7 @@ class App() {
                 println("잘못된 입력닙니다. 다시입력해주세요")
                 continue
             }
+
             val isExit = controller.wiseSayingController(inputMap)
             if(isExit) break
         }

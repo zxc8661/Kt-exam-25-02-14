@@ -5,8 +5,8 @@ class WiseSayingService{
         return repository.create(newAuthor,newContent)
 
     }
-    fun list():List<WiseSaying>{
-        return repository.list()
+    fun list(page:Int):List<WiseSaying>{
+        return repository.list(page)
     }
 
     fun remove(id: Int):String {
@@ -31,6 +31,10 @@ class WiseSayingService{
 
     fun keyList(keywordType: String, keyword: String):List<WiseSaying> {
         return repository.keyList(keywordType,keyword)
+    }
+
+    fun totalPage(): Int {
+        return repository.totalPage()
     }
 
 
